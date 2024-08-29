@@ -13,7 +13,7 @@ module.exports = {
     compress: true,
     port: 4242,
     historyApiFallback: true, // Enables support for single-page applications
-    open: true,               // Opens the browser after the server has been started
+    // open: true,               // Opens the browser after the server has been started
     hot: true,                // Enables hot module replacement
   },
   mode: "development"
