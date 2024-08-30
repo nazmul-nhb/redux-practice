@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Redux Starter Project",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"start": "webpack-dev-server --config ./webpack.config.js",
 		"build": "webpack --config ./webpack.config.js --mode production"
@@ -18,6 +19,8 @@
 		"webpack-dev-server": "^5.0.4"
 	},
 	"dependencies": {
+		"immer": "^10.1.1",
+		"immutable": "^4.3.7",
 		"lodash": "^4.17.21"
 	}
 }

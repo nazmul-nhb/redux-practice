@@ -1,4 +1,4 @@
-import { compose, pipe } from "lodash/fp";
+import { compose, pipe } from "lodash/fp.js";
 
 let input = "   JavaScript  ";
 let output = "<div>" + input.trim() + "</div>";
