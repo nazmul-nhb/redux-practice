@@ -33,6 +33,7 @@ function publish(book) {
         draftBook.isPublished = true;
     })
 }
+
 let pBook = publish(book);
 
 console.log(book);

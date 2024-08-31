@@ -1,7 +1,7 @@
+import { generateID } from "@nazmul-nhb/id-generator";
 import { BUG_ADDED, BUG_REMOVED, BUG_RESOLVED } from "./actionTypes.js";
 
 // []
-let lastId = 0;
 
 export function reducer(state = [], action) {
     // if (action.type === 'bugAdded') {
@@ -22,7 +22,7 @@ export function reducer(state = [], action) {
         case BUG_ADDED:
             return [
                 ...state, {
-                    id: ++lastId,
+                    id: generateID({ timeStamp: false, length: 4 }),
                     description: action.payload.description,
                     resolved: false
                 }
