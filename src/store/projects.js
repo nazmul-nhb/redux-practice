@@ -8,8 +8,8 @@ const slice = createSlice({
         addProject: (projects, action) => {
             projects.push({
                 id: generateID({ timeStamp: false, length: 16, caseOption:"upper" }),
-                description: action.payload.description,
-                isRunning: false
+                name: action.payload.name,
+                isRunning: true
             });
         }
     }
