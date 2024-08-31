@@ -1,33 +1,62 @@
-import { createAction, createReducer } from "@reduxjs/toolkit";
-
-export const bugAdded = createAction("bugAdded");
-
-export const bugRemoved = createAction("bugRemoved");
-
-export const bugResolved = createAction("bugResolved");
+import { createAction, createReducer, createSlice } from "@reduxjs/toolkit";
 
 let lastId = 0;
 
-// use latest createReducer with builder
-export default createReducer([], (builder) => {
-    builder
-        .addCase(bugAdded, (bugs, action) => {
+// create slice
+const slice = createSlice({
+    name: 'bugs',
+    initialState: [],
+    reducers: {
+        bugAdded: (bugs, action) => {
             bugs.push({
                 id: ++lastId,
                 description: action.payload.description,
                 resolved: false
             });
-        })
-        .addCase(bugRemoved, (bugs, action) => {
-            return bugs.filter(bug => bug.id !== action.payload.id);
-        })
-        .addCase(bugResolved, (bugs, action) => {
+        },
+        bugResolved: (bugs, action) => {
             const index = bugs.findIndex(bug => bug.id === action.payload.id);
             if (index !== -1) {
                 bugs[index].resolved = true;
             }
-        });
+        },
+        bugRemoved: (bugs, action) => {
+            return bugs.filter(bug => bug.id !== action.payload.id);
+        }
+    }
 });
+
+export const { bugAdded, bugResolved, bugRemoved } = slice.actions;
+
+export default slice.reducer;
+
+// // create actions
+// export const bugAdded = createAction("bugAdded");
+
+// export const bugRemoved = createAction("bugRemoved");
+
+// export const bugResolved = createAction("bugResolved");
+
+// // use latest createReducer with builder
+// export default createReducer([], (builder) => {
+//     builder
+//         .addCase(bugAdded, (bugs, action) => {
+//             bugs.push({
+//                 id: ++lastId,
+//                 description: action.payload.description,
+//                 resolved: false
+//             });
+//         })
+//         .addCase(bugRemoved, (bugs, action) => {
+//             return bugs.filter(bug => bug.id !== action.payload.id);
+//         })
+//         .addCase(bugResolved, (bugs, action) => {
+//             const index = bugs.findIndex(bug => bug.id === action.payload.id);
+//             if (index !== -1) {
+//                 bugs[index].resolved = true;
+//             }
+//         });
+// });
 
 // reducer function without createReducer
 // export default function reducer(state = [], action) {
