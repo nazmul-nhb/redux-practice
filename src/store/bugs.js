@@ -2,7 +2,7 @@ import { createAction, createReducer, createSlice } from "@reduxjs/toolkit";
 
 let lastId = 0;
 
-// create slice
+// 3.create slice
 const slice = createSlice({
     name: 'bugs',
     initialState: [],
@@ -30,7 +30,7 @@ export const { bugAdded, bugResolved, bugRemoved } = slice.actions;
 
 export default slice.reducer;
 
-// // create actions
+// // 2.create actions
 // export const bugAdded = createAction("bugAdded");
 
 // export const bugRemoved = createAction("bugRemoved");
@@ -58,7 +58,7 @@ export default slice.reducer;
 //         });
 // });
 
-// reducer function without createReducer
+// 1.reducer function without createReducer
 // export default function reducer(state = [], action) {
 //     switch (action.type) {
 //         case bugAdded.type:
