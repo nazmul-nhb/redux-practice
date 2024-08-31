@@ -75,5 +75,10 @@ const z = getBugsByUser(1)(store.getState());
 
 console.log(z);
 
+store.dispatch((dispatch, getState) => {
+    dispatch({ type: 'bugsReceived', bugs: [1, 2, 3] });
+    console.log("Hola", getState());
+    
+});
 
 console.log(store.getState());
