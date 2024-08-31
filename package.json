@@ -3,7 +3,6 @@
 	"version": "1.0.0",
 	"description": "Redux Starter Project",
 	"main": "index.js",
-	"type": "module",
 	"scripts": {
 		"start": "webpack-dev-server --config ./webpack.config.js",
 		"build": "webpack --config ./webpack.config.js --mode production"
