@@ -1,4 +1,5 @@
 // import { bugAdded, bugRemoved, bugResolved } from "./actionCreator.js";
+import { apiCallRequested, apiCallSuccess } from "./store/api.js";
 import { bugAdded, bugAssignedToUser, bugRemoved, bugResolved, getBugsByUser, getUnresolvedBugs } from "./store/bugs.js";
 // import bugsStore from "./store/bugsStore.js";
 import { addProject } from "./store/projects.js";
@@ -7,9 +8,9 @@ import store from "./store/store.js";
 import { addUser } from "./store/users.js";
 // import { store } from "./store.js";
 
-const unsubscribe = store.subscribe(() => {
-    console.log("Store Changed!", store.getState());
-})
+// const unsubscribe = store.subscribe(() => {
+//     console.log("Store Changed!", store.getState());
+// });
 
 // store.dispatch(bugAdded("Bug 1"));
 // store.dispatch(bugAdded("Bug 2"));
@@ -42,8 +43,10 @@ const unsubscribe = store.subscribe(() => {
 
 // console.log(projectsStore.getState());
 
-store.dispatch(bugAdded({ description: "Bug 1" }));
-store.dispatch(bugAdded({ description: "Bug 2" }));
+// using createSlice -->
+
+// store.dispatch(bugAdded({ description: "Bug 1" }));
+// store.dispatch(bugAdded({ description: "Bug 2" }));
 // store.dispatch(bugAdded({ description: "Bug 3" }));
 // store.dispatch(bugAdded({ description: "Bug 4" }));
 // store.dispatch(bugAdded({ description: "Bug 5" }));
@@ -67,18 +70,37 @@ store.dispatch(bugAdded({ description: "Bug 2" }));
 // console.log(y);
 
 
-store.dispatch(addUser({ name: "Mofiz" }));
-// store.dispatch(addUser({ name: "Hafiz" }));
-store.dispatch(bugAssignedToUser({ bugId: 2, userId: 1 }));
+// store.dispatch(addUser({ name: "Mofiz" }));
+// // store.dispatch(addUser({ name: "Hafiz" }));
+// store.dispatch(bugAssignedToUser({ bugId: 2, userId: 1 }));
 
-const z = getBugsByUser(1)(store.getState());
+// const z = getBugsByUser(1)(store.getState());
 
-console.log(z);
+// console.log(z);
 
-store.dispatch((dispatch, getState) => {
-    dispatch({ type: 'bugsReceived', bugs: [1, 2, 3] });
-    console.log("Hola", getState());
-    
-});
+// store.dispatch((dispatch, getState) => {
+//     dispatch({ type: 'bugsReceived', bugs: [1, 2, 3] });
+//     console.log("Hola", getState());
 
-console.log(store.getState());
+// });
+
+// console.log(store.getState());
+
+
+// store.dispatch({
+//         type: 'apiRequested',
+//         payload: {
+//             url: '/bugs',
+//             method: 'get',
+//             data: {},
+//             onSuccess: 'bugsReceived',
+//             onError: 'apiRequestFailed'
+//         }
+// });
+
+// using createAction
+store.dispatch(apiCallRequested({
+    url: '/bugs',
+    onSuccess: "bugsReceived",
+}
+));
