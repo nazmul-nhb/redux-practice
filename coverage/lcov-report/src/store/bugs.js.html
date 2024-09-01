@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.51% </span>
+                <span class="strong">73.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/43</span>
+                <span class='fraction'>31/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.36% </span>
+                <span class="strong">59.09% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/22</span>
+                <span class='fraction'>13/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.48% </span>
+                <span class="strong">78.12% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/33</span>
+                <span class='fraction'>25/32</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -238,15 +238,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -274,16 +274,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -395,16 +395,16 @@ const slice = createSlice({
         lastFetch: null
     },
     reducers: {
-        bugsRequested: <span class="fstat-no" title="function not covered" >(b</span>ugs, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >            bugs.isLoading = true;</span>
+        bugsRequested: (bugs, action) =&gt; {
+            bugs.isLoading = true;
         },
-        bugsReceived: <span class="fstat-no" title="function not covered" >(b</span>ugs, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >            bugs.list = action.payload;</span>
-<span class="cstat-no" title="statement not covered" >            bugs.isLoading = false;</span>
-<span class="cstat-no" title="statement not covered" >            bugs.lastFetch = Date.now();</span>
+        bugsReceived: (bugs, action) =&gt; {
+            bugs.list = action.payload;
+            bugs.isLoading = false;
+            bugs.lastFetch = Date.now();
         },
-        bugsRequestFailed: <span class="fstat-no" title="function not covered" >(b</span>ugs, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >            bugs.isLoading = false;</span>
+        bugsRequestFailed: (bugs, action) =&gt; {
+            bugs.isLoading = false;
         },
         bugAdded: (bugs, action) =&gt; {
             bugs.list.push(action.payload);
@@ -432,16 +432,16 @@ export default slice.reducer;
 &nbsp;
 const url = '/bugs';
 &nbsp;
-export const loadBugs = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(d</span>ispatch, getState) =&gt; {</span>
-    const { lastFetch } = <span class="cstat-no" title="statement not covered" >getState().entities.bugs;</span>
+export const loadBugs = () =&gt; (dispatch, getState) =&gt; {
+    const { lastFetch } = getState().entities.bugs;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    console.log(lastFetch);</span>
+    // console.log(lastFetch);
 &nbsp;
-    const minsDiff = <span class="cstat-no" title="statement not covered" >moment().diff(moment(lastFetch), "minutes");</span>
+    const minsDiff = moment().diff(moment(lastFetch), "minutes");
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (minsDiff &lt; 10) <span class="cstat-no" title="statement not covered" >return;</span></span>
+    if (minsDiff &lt; 10) return;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    dispatch(</span>
+    return dispatch(
         apiCallBegan(
             {
                 url,
@@ -544,7 +544,7 @@ export const getBugsByUser = <span class="fstat-no" title="function not covered"
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-01T17:36:02.420Z
+                at 2024-09-01T18:57:07.796Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

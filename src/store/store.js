@@ -10,6 +10,7 @@ export default function () {
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat(
                 logger("Manush"),
+                func,
                 api
             ),
     });
