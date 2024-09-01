@@ -1,9 +1,9 @@
 import axios from "axios";
-import { apiCallFailed, apiCallRequested, apiCallSuccess } from "../api.js";
+import { apiCallFailed, apiCallBegan, apiCallSuccess } from "../api.js";
 
 const api = ({ dispatch }) => next => async action => {
 
-    if (action.type !== apiCallRequested.type) {
+    if (action.type !== apiCallBegan.type) {
         return next(action);
     }
 
