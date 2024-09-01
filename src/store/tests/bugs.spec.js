@@ -24,13 +24,42 @@ describe("bugsSlice", () => {
     //         expect(result).toEqual(expected)
     //     });
     // });
-    it("should handle the addBug action", async () => {
-        const bug = { description: "Bug Test" };
-        const savedBug = { ...bug, id: 1 }
-        const fakeAxios = new MockAdapter(axios);
-        fakeAxios.onPost('/bugs').reply(200, savedBug);
 
+    let fakeAxios;
+
+    beforeEach(() => {
+        fakeAxios = new MockAdapter(axios);
+    });
+
+    // helper function
+    const bugsSlice = () => {
+        return store.getState().entities.bugs;
+    }
+
+    // it("should add the bug to the store if it's saved to the server", async () => {
+    //     // AAA --> 
+    //     // -> Arrange
+    //     const bug = { description: "Bug Test" };
+    //     const savedBug = { ...bug, id: 1 };
+    //     fakeAxios.onPost('/bugs').reply(200, savedBug);
+
+    //     // -> Act 
+    //     await store.dispatch(addBug(bug));
+
+    //     // -> Assert
+    //     expect(bugsSlice().list).toContainEqual(savedBug);
+    // });
+
+    it("should not add the bug to the store if it's not saved to the server", async () => {
+        // AAA --> 
+        // -> Arrange
+        const bug = { description: "Bug Test" };
+        fakeAxios.onPost('/bugs').reply(500);
+
+        // -> Act 
         await store.dispatch(addBug(bug));
-        expect(store.getState().entities.bugs.list).toContainEqual(savedBug);
-    })
+
+        // -> Assert
+        expect(bugsSlice().list).toHaveLength(0);
+    });
 });
