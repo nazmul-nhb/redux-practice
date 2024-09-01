@@ -1,6 +1,6 @@
 // import { bugAdded, bugRemoved, bugResolved } from "./actionCreator.js";
 import { apiCallBegan, apiCallSuccess } from "./store/api.js";
-import { bugAdded, bugAssignedToUser, bugRemoved, bugResolved, bugsReceived, getBugsByUser, getUnresolvedBugs, loadBugs } from "./store/bugs.js";
+import { addBug, assignBugToUser, bugAdded, bugAssignedToUser, bugRemoved, bugResolved, bugsReceived, getBugsByUser, getUnresolvedBugs, loadBugs, resolveBug } from "./store/bugs.js";
 // import bugsStore from "./store/bugsStore.js";
 import { addProject } from "./store/projects.js";
 // import projectsStore from "./store/projectsStore.js";
@@ -101,6 +101,18 @@ import { addUser } from "./store/users.js";
 // using createAction
 store.dispatch(loadBugs());
 
+// setTimeout(() => {
+//     store.dispatch(loadBugs());
+// }, 2000);
+
+// store.dispatch(addBug({ description: "Babul" }));
+
 setTimeout(() => {
-    store.dispatch(loadBugs());
+    store.dispatch(resolveBug(2));
 }, 2000);
+
+
+setTimeout(() => {
+    store.dispatch(assignBugToUser(2, 4));
+}, 2000);
+
