@@ -1,5 +1,5 @@
 import { apiCallBegan } from "../api";
-import { addBug, bugAdded, getUnresolvedBugs, resolveBug } from "../bugs"
+import { addBug, bugAdded, getUnresolvedBugs, loadBugs, resolveBug } from "../bugs"
 import Store from "../store";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
@@ -47,6 +47,67 @@ describe("bugsSlice", () => {
             }
         }
     }
+
+    // const flushPromises = () => new Promise(setImmediate);
+
+    describe("loading bugs", () => {
+        describe("if the bugs exist in the cache", () => {
+            it("they should not be fetched from the server again.", async () => {
+                fakeAxios.onGet("/bugs").reply(200, [{ id: 1 }]);
+
+                await store.dispatch(loadBugs());
+                await store.dispatch(loadBugs());
+
+                expect(fakeAxios.history.get.length).toBe(1);
+            });
+        });
+
+        describe("if the bugs don't exist in the cache", () => {
+            it("they should be fetched from the server and put in the store", async () => {
+                fakeAxios.onGet("/bugs").reply(200, [{ id: 1 }]);
+
+                await store.dispatch(loadBugs());
+
+                // Wait for the state to update
+                // await flushPromises();
+
+                expect(bugsSlice().list).toHaveLength(1);
+            });
+
+            describe("loading indicator", () => {
+                it("should be true while fetching the bugs", () => {
+                    fakeAxios.onGet("/bugs").reply(() => {
+                        expect(bugsSlice().isLoading).toBe(true);
+                        return [200, [{ id: 1 }]];
+                    });
+
+                    store.dispatch(loadBugs());
+                });
+
+                it("should be false after the bugs are fetched", async () => {
+                    fakeAxios.onGet("/bugs").reply(200, [{ id: 1 }]);
+
+                    await store.dispatch(loadBugs());
+
+                    // Wait for the state to update
+                    // await flushPromises();
+
+                    expect(bugsSlice().isLoading).toBe(false);
+                });
+
+                it("should be false if the server returns an error", async () => {
+                    fakeAxios.onGet("/bugs").reply(500);
+
+                    await store.dispatch(loadBugs());
+
+                    // Wait for the state to update
+                    // await flushPromises();
+
+                    expect(bugsSlice().isLoading).toBe(false);
+                });
+            });
+        });
+    });
 
     it("should add the bug to the store if it's saved to the server", async () => {
         // AAA --> 
