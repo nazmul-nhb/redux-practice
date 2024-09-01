@@ -102,12 +102,12 @@ export const assignBugToUser = (bugId, userId) =>
 // createSelector from reselect via rtk
 export const getUnresolvedBugs = createSelector(
     state => state.entities.bugs,
-    bugs => bugs.filter(bug => !bug.resolved)
+    bugs => bugs.list.filter(bug => !bug.resolved)
 );
 
 export const getBugsByUser = (userId) => createSelector(
     state => state.entities.bugs,
-    bugs => bugs.filter(bug => bug.userId === userId)
+    bugs => bugs.list.filter(bug => bug.userId === userId)
 );
 
 // // 2.create actions
