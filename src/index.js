@@ -1,6 +1,6 @@
 // import { bugAdded, bugRemoved, bugResolved } from "./actionCreator.js";
 import { apiCallRequested, apiCallSuccess } from "./store/api.js";
-import { bugAdded, bugAssignedToUser, bugRemoved, bugResolved, getBugsByUser, getUnresolvedBugs } from "./store/bugs.js";
+import { bugAdded, bugAssignedToUser, bugRemoved, bugResolved, getBugsByUser, getUnresolvedBugs, loadBugs } from "./store/bugs.js";
 // import bugsStore from "./store/bugsStore.js";
 import { addProject } from "./store/projects.js";
 // import projectsStore from "./store/projectsStore.js";
@@ -99,8 +99,4 @@ import { addUser } from "./store/users.js";
 // });
 
 // using createAction
-store.dispatch(apiCallRequested({
-    url: '/bugs',
-    onSuccess: "bugsReceived",
-}
-));
+store.dispatch(loadBugs());

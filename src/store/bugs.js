@@ -1,39 +1,54 @@
 import { createAction, createReducer, createSelector, createSlice } from "@reduxjs/toolkit";
+import { apiCallRequested } from "./api";
 
 let lastId = 0;
 
 // 3.create slice
 const slice = createSlice({
     name: 'bugs',
-    initialState: [],
+    initialState: {
+        list: [],
+        isLoading: false,
+        lastFetch: null
+    },
     reducers: {
+        bugsReceived: (bugs, action) => {
+            bugs.list = action.payload;
+        },
         bugAdded: (bugs, action) => {
-            bugs.push({
+            bugs.list.push({
                 id: ++lastId,
                 description: action.payload.description,
                 resolved: false
             });
         },
         bugResolved: (bugs, action) => {
-            const index = bugs.findIndex(bug => bug.id === action.payload.id);
+            const index = bugs.list.findIndex(bug => bug.id === action.payload.id);
             if (index !== -1) {
-                bugs[index].resolved = true;
+                bugs.list[index].resolved = true;
             }
         },
         bugRemoved: (bugs, action) => {
-            return bugs.filter(bug => bug.id !== action.payload.id);
+            return bugs.list.filter(bug => bug.id !== action.payload.id);
         },
         bugAssignedToUser: (bugs, action) => {
             const { bugId, userId } = action.payload;
-            const index = bugs.findIndex(bug => bug.id === bugId);
-            bugs[index].userId = userId;
+            const index = bugs.list.findIndex(bug => bug.id === bugId);
+            bugs.list[index].userId = userId;
         }
     }
 });
 
-export const { bugAdded, bugResolved, bugRemoved, bugAssignedToUser } = slice.actions;
+export const { bugAdded, bugResolved, bugRemoved, bugAssignedToUser, bugsReceived } = slice.actions;
 
 export default slice.reducer;
+
+const url = '/bugs';
+
+export const loadBugs = () => apiCallRequested({
+    url,
+    onSuccess: bugsReceived.type,
+});
 
 // manual selector
 // export const getUnresolvedBugs = (state) => {
