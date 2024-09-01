@@ -4,9 +4,11 @@ import { addBug, assignBugToUser, bugAdded, bugAssignedToUser, bugRemoved, bugRe
 // import bugsStore from "./store/bugsStore.js";
 import { addProject } from "./store/projects.js";
 // import projectsStore from "./store/projectsStore.js";
-import store from "./store/store.js";
+import Store from "./store/store.js";
 import { addUser } from "./store/users.js";
 // import { store } from "./store.js";
+
+const store = Store();
 
 // const unsubscribe = store.subscribe(() => {
 //     console.log("Store Changed!", store.getState());

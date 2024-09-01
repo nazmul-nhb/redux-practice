@@ -1,6 +1,6 @@
 import { apiCallBegan } from "../api";
-import { addBug, bugAdded, getUnresolvedBugs } from "../bugs"
-import store from "../store";
+import { addBug, bugAdded, getUnresolvedBugs, resolveBug } from "../bugs"
+import Store from "../store";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 
@@ -26,9 +26,11 @@ describe("bugsSlice", () => {
     // });
 
     let fakeAxios;
+    let store;
 
     beforeEach(() => {
         fakeAxios = new MockAdapter(axios);
+        store = Store();
     });
 
     // helper functions
@@ -46,19 +48,29 @@ describe("bugsSlice", () => {
         }
     }
 
-    // it("should add the bug to the store if it's saved to the server", async () => {
-    //     // AAA --> 
-    //     // -> Arrange
-    //     const bug = { description: "Bug Test" };
-    //     const savedBug = { ...bug, id: 1 };
-    //     fakeAxios.onPost('/bugs').reply(200, savedBug);
+    it("should add the bug to the store if it's saved to the server", async () => {
+        // AAA --> 
+        // -> Arrange
+        const bug = { description: "Bug Test" };
+        const savedBug = { ...bug, id: 1 };
+        fakeAxios.onPost('/bugs').reply(200, savedBug);
 
-    //     // -> Act 
-    //     await store.dispatch(addBug(bug));
+        // -> Act 
+        await store.dispatch(addBug(bug));
 
-    //     // -> Assert
-    //     expect(bugsSlice().list).toContainEqual(savedBug);
-    // });
+        // -> Assert
+        expect(bugsSlice().list).toContainEqual(savedBug);
+    });
+
+    it("should mark the bug as resolved if it's saved to the server", async () => {
+        fakeAxios.onPost('/bugs').reply(200, { id: 1 });
+        fakeAxios.onPatch('/bugs/1').reply(200, { id: 1, resolved: true });
+
+        await store.dispatch(addBug({}));
+        await store.dispatch(resolveBug(1));
+
+        expect(bugsSlice().list[0]?.resolved).toBe(true);
+    })
 
     it("should not add the bug to the store if it's not saved to the server", async () => {
         // AAA --> 
@@ -81,6 +93,6 @@ describe("bugsSlice", () => {
             const result = getUnresolvedBugs(state);
 
             expect(result).toHaveLength(2);
-        })
-    })
+        });
+    });
 });

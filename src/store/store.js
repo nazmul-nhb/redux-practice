@@ -4,10 +4,14 @@ import logger from "./middleware/logger.js";
 import func from "./middleware/func.js";
 import api from "./middleware/api.js";
 
-const store = configureStore({
-    reducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(logger("Manush"), api)
-});
+export default function () {
+    return configureStore({
+        reducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().concat(
+                logger("Manush"),
+                 api
+                )
+    });
+}
 
-export default store;
